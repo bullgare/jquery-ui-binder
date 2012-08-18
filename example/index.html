@@ -1,0 +1,46 @@
+<!doctype html>
+<head>
+<!--	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>-->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.8.22/jquery-ui.min.js"></script>
+
+	<script type="text/javascript" src="../jquery-ui.extension_binder.js"></script>
+</head>
+<body>
+	<div>
+		<div id="js-wrapper" style="width: 100px; height: 100px; background-color: #adff2f;" data-test="123"></div>
+	</div>
+	<input type="button" class="js-bind" value="bind handler for square click" />
+
+	<script type="text/javascript">
+		(function() {
+			"use strict";
+
+			$.widget( "ui.my_test_widget", $.ui.extension_binder,
+				{
+					makeBind: function ()
+					{
+						var me = this;
+
+						me.bindSmart( 'click', function () {
+							me.showMessage();
+						} );
+					},
+					showMessage: function ()
+					{
+						alert( 'only once!' );
+					}
+				} );
+
+			$( document ).ready( function () {
+				var $el = $( '#js-wrapper' );
+				$el.my_test_widget();
+
+				$( '.js-bind' ).on( 'click', function () {
+					$el.my_test_widget( 'makeBind' );
+				} );
+			} );
+		})();
+	</script>
+
+</body>
