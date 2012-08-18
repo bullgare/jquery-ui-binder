@@ -32,7 +32,8 @@
 				var me = this,
 					$me = $( me.element ),
 				// all bindings on base element
-					events = $.data( $me.get( 0 ), 'events' ),
+				// @link http://bugs.jquery.com/ticket/10589
+					events = $._data( $me.get( 0 ), "events" ),
 					boundEvents = me._getSmartBoundEvents( events, EventName );
 
 				if ( ! boundEvents.length ) {
